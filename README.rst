@@ -17,12 +17,19 @@ Status
 .. image:: https://readthedocs.org/projects/thunderpi/badge/?version=latest
    :target: https://readthedocs.org/projects/thunderpi/?badge=latest
    :alt: Documentation Status
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/psf/black
 
 
 Requirements
 ============
 
+Make sure you installed I2C as in this link:
+
+https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c
+
 * Python 3.7 over
+
 
 Features
 ========

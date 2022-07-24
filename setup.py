@@ -1,13 +1,14 @@
-# -*- coding: utf-8 -*-
 """setup.py"""
 
 import os
 import sys
+
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
 
+
 class Tox(TestCommand):
-    user_options = [('tox-args=', 'a', 'Arguments to pass to tox')]
+    user_options = [("tox-args=", "a", "Arguments to pass to tox")]
 
     def initialize_options(self):
         TestCommand.initialize_options(self)
@@ -19,8 +20,10 @@ class Tox(TestCommand):
         self.test_suite = True
 
     def run_tests(self):
-        import tox
         import shlex
+
+        import tox
+
         if self.tox_args:
             errno = tox.cmdline(args=shlex.split(self.tox_args))
         else:
@@ -46,31 +49,33 @@ classifiers = [
 ]
 
 
-long_description = (
-    read_content("README.rst") +
-    read_content(os.path.join("docs/source", "CHANGELOG.rst")))
+long_description = read_content("README.rst") + read_content(
+    os.path.join("docs/source", "CHANGELOG.rst")
+)
 
-requires = ['setuptools']
+requires = ["setuptools"]
 
 extras_require = {
-    'reST': ['Sphinx'],
-    }
-if os.environ.get('READTHEDOCS', None):
-    extras_require['reST'].append('recommonmark')
+    "reST": ["Sphinx"],
+}
+if os.environ.get("READTHEDOCS", None):
+    extras_require["reST"].append("recommonmark")
 
-setup(name='thunderpi',
-      version='0.1.0',
-      description='##### ToDo: Rewrite me #####',
-      long_description=long_description,
-      long_description_content_type='text/x-rst',
-      author='mjkl-gh',
-      author_email='9350991+mjkl-gh@users.noreply.github.com',
-      url='https://github.com/mjkl/thunderpi',
-      classifiers=classifiers,
-      packages=['thunderpi'],
-      data_files=[],
-      install_requires=requires,
-      include_package_data=True,
-      extras_require=extras_require,
-      tests_require=['tox'],
-      cmdclass={'test': Tox},)
+setup(
+    name="thunderpi",
+    version="0.1.0",
+    description="##### ToDo: Rewrite me #####",
+    long_description=long_description,
+    long_description_content_type="text/x-rst",
+    author="mjkl-gh",
+    author_email="9350991+mjkl-gh@users.noreply.github.com",
+    url="https://github.com/mjkl/thunderpi",
+    classifiers=classifiers,
+    packages=["thunderpi"],
+    data_files=[],
+    install_requires=requires,
+    include_package_data=True,
+    extras_require=extras_require,
+    tests_require=["tox"],
+    cmdclass={"test": Tox},
+)

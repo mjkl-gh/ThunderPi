@@ -1,0 +1,5 @@
+[run]
+include =
+    thunderpi/*
+omit =
+    thunderpi/tests/*

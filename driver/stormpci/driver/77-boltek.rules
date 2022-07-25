@@ -1,0 +1,6 @@
+# copy this file to /etc/udev/rules.d/ before installing driver
+# This will allow a /dev/lightning-0 to be created with correct permissions
+
+DRIVERS=="boltek", MODE="0666"
+
+

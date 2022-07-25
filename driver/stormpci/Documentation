@@ -1,0 +1,71 @@
+Driver and Userspace SDK for Boltek Lightning Detector
+-------------------------------------------------------
+
+Kernel Module
+------------
+
+First, you need to install the device driver.
+
+cd driver
+make
+cp 77-boltek.rules /etc/udev/rules.d/
+
+If that fails you need to install the development headers for the
+kernel you are running.
+
+apt-get install linux-headers on debian or ubuntu
+yum install kernel-headers on redhat or centos
+
+check /lib/modules/`uname -r`/build for existence as a test that they
+are installed.
+
+boltek.ko is the kernel module. Install as "insmod boltek.ko". Putting
+this in /etc/rc.local is a good idea.
+
+As with all kernel modules, if you update your kernel you will need to
+rebuild the module.
+
+run dmesg and you should see something along the lines of:
+Boltek Lightning Detector started at /dev/lightning-0 major 252 minor 0
+
+and ls -l /dev/lightning-0 will show
+crw-rw-rw- 1 root 252, 0 2008-06-25 09:56 /dev/lightning-0
+
+Note that the device is created with access permissions for everybody
+(0666). This can be changed in the 77-boltek.rules file you
+installed. The default permissions if that is not installed are 0660
+and only root can use the device.
+
+If you are not running udev then the device file is not created for
+you at all. You can make the device by hand by doing "mknod
+/dev/lightning-0 c 252 0". The minor number is always 0 but the major
+number is dynamically assigned and may change each time you insmod the
+driver. The major number can be found either in that log message or
+/proc/devices - udev is found on modern Linux distributions and is the
+preferred way of doing things.
+
+Userspace Library
+-------------------
+
+libboltek.c - the userspace library source
+stormpci.h  - The header file for libboltek using applications which
+	      defines the API
+demo.c      - An example application using libboltek
+
+To build the libraries and demo application
+
+cd libboltek
+make
+
+These new files are produced:
+
+libboltek.so - the compiled userspace library as a shared library 
+libboltek.a  - the compiled userspace library as a static library
+demo
+
+the libboltek library depends on the math library, so be sure to add
+-lm to any linker command that uses libboltek.[so|a]
+
+Run demo as ./demo
+
+
